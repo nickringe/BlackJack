@@ -1,0 +1,41 @@
+
+public class Player {
+
+	private String name;
+	private double bank;
+	private double bet;
+
+	public Player(String name, double bet) {
+		this.bank = 100;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getBank() {
+		return bank;
+	}
+
+	public void setBank(double bank) {
+		this.bank = bank;
+	}
+
+	public double getBet() {
+		return bet;
+	}
+
+	public void setBet(double bet) {
+		this.bet = bet;
+	}
+	
+	public double playerBet() {
+		this.bank = this.bank - this.bet;
+		return this.bank;
+	}
+
+}

@@ -1,0 +1,70 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+//dealer busted when first ace came through (3rd card)
+	//scanner is giving me hell about asking for user input at the end.
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println("Welcome to Nick's Java BlackJack table!");
+		System.out.println("Please enter your name: ");
+		Scanner scnr = new Scanner(System.in);
+		String userName = scnr.nextLine();
+		boolean moneyCorrect = false;
+		boolean userCont = true;
+		while (moneyCorrect == false) {
+			// try {
+			System.out.println("You will begin with $100.");
+			while (userCont == true) {
+				System.out.println("How much would you like to bet this hand?");
+				double userBet = scnr.nextDouble();
+				if (userBet > 100) {
+					System.out.println("You don't have enough money for that!");
+					moneyCorrect = false;
+				} else {
+					moneyCorrect = true;
+					Player player1 = new Player(userName, userBet);
+					Dealer dealer = new Dealer();
+
+					System.out.println("Hi there, " + userName + ". You started this round with $" + player1.getBank()
+							+ " in your bank.");
+
+					ArrayList<Card> firstDeck = new ArrayList<>();
+					player1.playerBet();
+					Thread.sleep(1500);
+					System.out.println("You have $" + player1.getBank() + " since you've bet $" + userBet);
+
+					Methods.fillDeck(firstDeck);
+					Methods.deal(firstDeck, player1, dealer);
+					Methods.play(firstDeck, player1, dealer);
+					if (player1.getBust() == false) {
+						Methods.dealerPlay(firstDeck, player1, dealer);
+					} else {
+						System.out.println("You lost your bet of $" + player1.getBet());
+						System.out.println("You have $" + player1.getBank() + " in your bank.");
+					}
+
+					System.out.println("Play again? 1/2");
+					System.out.println("1. Yes");
+					System.out.println("2. No");
+					Scanner scnr1 = new Scanner(System.in);
+					int userInput = scnr1.nextInt();
+					if (userInput == 1 ) {
+						userCont = true;
+					} else {
+						userCont = false;
+						break;
+					}
+				}
+			}
+		}
+//			} catch (Exception e) {
+//				System.out.println("Invalid Input. Please try again. Error: Main.tryCatch...");
+//				moneyCorrect = false;
+//				userCont = true;
+//				scnr.next();
+//			}
+
+		// scnr.close();
+	}
+
+}
